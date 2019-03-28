@@ -38,6 +38,8 @@ public class Home_Screen_Buttons : MonoBehaviour {
     }
 
     void PlayDoneFading(string sceneToLoad) {
+        LoadingScreen.To = sceneToLoad;
+        LoadingScreen.From = "HomeScreen";
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 }
