@@ -9,6 +9,7 @@ public class Home_Screen_Buttons : MonoBehaviour {
     public Button play;
     public Image toFade;
     private bool switchingScreen;
+    private string toLoad;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +19,7 @@ public class Home_Screen_Buttons : MonoBehaviour {
 
     void PlayOnClick () {
         switchingScreen = true;
+        toLoad = "LoadingScreen";
     }
 
     void Update () {
@@ -30,12 +32,12 @@ public class Home_Screen_Buttons : MonoBehaviour {
             toFade.color = newColor;
             if(newAlpha >= 1f) {
                 switchingScreen = false;
-                PlayDoneFading();
+                PlayDoneFading(toLoad);
             }
         }
     }
 
-    void PlayDoneFading() {
-        SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
+    void PlayDoneFading(string sceneToLoad) {
+        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 }
