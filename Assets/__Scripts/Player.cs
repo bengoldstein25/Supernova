@@ -8,10 +8,14 @@ public class Player : MonoBehaviour {
     public float turningSpeed = 60;
 
     void Update() {
-        float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
-        transform.Rotate(0, horizontal, 0);
-
         float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
         transform.Translate(0, 0, vertical);
+
+        float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
+        if (vertical >= 0) {
+            transform.Rotate(0, horizontal, 0);
+        } else {
+            transform.Rotate(0, -1 * horizontal, 0);
+        }
     }
 }

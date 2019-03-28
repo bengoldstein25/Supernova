@@ -8,6 +8,7 @@ public class FollowCamera : MonoBehaviour {
     public bool smooth = true;
     public float minDistance = 10.0f;
     public string property = "";
+    public Vector3 goalDistance;
 
     private Color color;
     private float alpha = 1.0f;
@@ -16,9 +17,11 @@ public class FollowCamera : MonoBehaviour {
     void Awake() {
         _myTransform = transform;
         targetTransform = target.transform;
+        goalDistance = this.transform.position - targetTransform.position;
     }
     
     void LateUpdate() {
+        this.transform.position = targetTransform.position + goalDistance;
         if (target) {
             if (smooth) {
                 Quaternion rotation = Quaternion.LookRotation(targetTransform.position - _myTransform.position);
