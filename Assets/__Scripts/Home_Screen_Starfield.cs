@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Parallax_Home_Screen : MonoBehaviour {
+public class Home_Screen_Starfield : MonoBehaviour {
 
     public GameObject[] panels;
     public float scrollSpeed = 3f;
