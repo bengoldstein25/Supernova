@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public float movementSpeed = 20;
+    public float movementSpeed = 10;
     public float turningSpeed = 60;
     public GameObject com;
+    Rigidbody rb;
 
     void Start() {
         GetComponent<Rigidbody>().centerOfMass = com.transform.localPosition;
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update() {
-        float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
-        transform.Translate(0, 0, vertical);
+        float vertical = Input.GetAxis("Vertical") * movementSpeed;
+        rb.AddForce(transform.forward * vertical, ForceMode.Acceleration);
 
         float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
         if (vertical >= 0) {
@@ -22,6 +24,5 @@ public class Player : MonoBehaviour {
         } else {
             transform.Rotate(0, -1 * horizontal, 0);
         }
-
     }
 }
