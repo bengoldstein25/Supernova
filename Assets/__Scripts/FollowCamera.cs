@@ -5,7 +5,7 @@ public class FollowCamera : MonoBehaviour {
     public GameObject toFollow;
     public Transform target;
     public float distance = 8.0f;
-    public float height = 3.0f;
+    public float height = 6.0f;
     public float damping = 5.0f;
     public bool smoothRotation = true;
     public bool followBehind = true;
@@ -25,7 +25,7 @@ public class FollowCamera : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, wantedPosition, Time.deltaTime * damping);
 
         if (smoothRotation) {
-            Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, target.up);
+            Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, wantedRotation, Time.deltaTime * rotationDamping);
         } else transform.LookAt(target, target.up);
     }
