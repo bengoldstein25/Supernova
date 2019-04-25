@@ -6,8 +6,10 @@ public class Player : MonoBehaviour {
 
     public float movementSpeed = 10;
     public float turningSpeed = 60;
+    public int accelFactor = 1;
     public GameObject com;
     Rigidbody rb;
+    GameObject minimapMarker;
     bool onGround;
 
     void Start() {
@@ -19,7 +21,8 @@ public class Player : MonoBehaviour {
     void Update() {
         float vertical = Input.GetAxis("Vertical") * movementSpeed;
         if (onGround) {
-            rb.AddForce(transform.forward * vertical, ForceMode.Acceleration);
+            Vector3 forceToAdd = transform.forward * vertical;
+            rb.AddForce(accelFactor * forceToAdd, ForceMode.Acceleration);
         }
 
         float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
@@ -28,6 +31,7 @@ public class Player : MonoBehaviour {
         } else {
             transform.Rotate(0, -1 * horizontal, 0);
         }
+
     }
 
     void OnCollisionEnter(Collision coll) {
