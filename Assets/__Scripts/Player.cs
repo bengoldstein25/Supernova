@@ -22,6 +22,11 @@ public class Player : MonoBehaviour {
         float vertical = Input.GetAxis("Vertical") * movementSpeed;
         if (onGround) {
             Vector3 forceToAdd = transform.forward * vertical;
+            var localVelocity = transform.InverseTransformDirection(rb.velocity);
+            var forwardSpeed = localVelocity.z;
+            if ((vertical < 0 && forwardSpeed > 0) || (vertical > 0 && forwardSpeed < 0)) {
+                forceToAdd = forceToAdd * 2;
+            }
             rb.AddForce(accelFactor * forceToAdd, ForceMode.Acceleration);
         }
 
