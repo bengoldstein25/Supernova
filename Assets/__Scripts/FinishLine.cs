@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FinishLine : MonoBehaviour {
 
     [Header("Changes as player does laps")]
-    public int num_laps = 0;
+    public int num_laps = 1;
 
     [Header("Depends on the race")]
     public int total_laps = 3;
@@ -25,7 +25,7 @@ public class FinishLine : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (num_laps >= total_laps)
+        if (num_laps > total_laps)
         {
             hasWon = true;
         }
@@ -34,9 +34,13 @@ public class FinishLine : MonoBehaviour {
         {
             lapCounter.text = "Lap " + num_laps + " of " + total_laps;
             elapsedTime = Time.time - elapsedTime;
-            int min = (int) elapsedTime / 60;
-            int sec = (int) elapsedTime % 60;
-            timeCounter.text = min.ToString() + ":" + sec.ToString("f0");
+            string min = ((int) elapsedTime / 60).ToString();
+            int sec_i = (int)elapsedTime % 60;
+            string sec = sec_i.ToString();
+            if (sec_i < 10) sec = "0" + sec;
+
+
+            timeCounter.text = min + ":" + sec;
         }
         else
         {
@@ -49,7 +53,6 @@ public class FinishLine : MonoBehaviour {
     
     void OnTriggerEnter(Collider coll)
     {
-        print("colliding with something");
         if (coll.tag == "Player")
         {
             if (!startedRace) startedRace = true;

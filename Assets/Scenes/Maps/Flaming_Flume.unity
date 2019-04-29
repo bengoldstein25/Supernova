@@ -43145,7 +43145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91d649619991e84882e9e29020d597a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  num_laps: 0
+  num_laps: 1
   total_laps: 3
   lapCounter: {fileID: 855802273}
   timeCounter: {fileID: 953806589}
