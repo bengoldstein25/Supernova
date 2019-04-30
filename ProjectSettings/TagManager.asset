@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - RampUp
+  - GravChange-X
   layers:
   - Default
   - TransparentFX
