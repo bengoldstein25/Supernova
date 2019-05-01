@@ -10,7 +10,10 @@ public class Player : MonoBehaviour {
     public GameObject com;
     Rigidbody rb;
     GameObject minimapMarker;
+    public GameObject followCamera;
     bool onGround;
+    private Vector3 grav;
+    private bool gravChanged;
 
     void Start() {
         GetComponent<Rigidbody>().centerOfMass = com.transform.localPosition;
@@ -37,6 +40,10 @@ public class Player : MonoBehaviour {
             transform.Rotate(0, -1 * horizontal, 0);
         }
 
+        if (gravChanged) {
+            rb.AddForce(grav * rb.mass);
+        }
+
     }
 
     void OnCollisionEnter(Collision coll) {
@@ -55,5 +62,12 @@ public class Player : MonoBehaviour {
         if (coll.collider.tag == "Ground") {
             onGround = true;
         }
+    }
+
+    public void ChangeGravity(Vector3 newGrav) {
+        this.rb.useGravity = false;
+        this.gravChanged = true;
+        this.grav = newGrav;
+        this.followCamera.GetComponent<FollowCamera>().changeUp(Vector3.Scale(new Vector3(-1, -1, -1), newGrav).normalized);
     }
 }

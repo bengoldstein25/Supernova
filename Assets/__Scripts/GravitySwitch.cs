@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class GravitySwitch : MonoBehaviour {
 
-	void OnCollisionEnter(Collision coll) {
-        if(coll.collider.tag == "Player") {
-            Physics.gravity = new Vector3(-9.8f, 0, 0);
+    public float x;
+    public float y;
+    public float z;
+
+	void OnTriggerEnter(Collider coll) {
+        if(coll.tag == "Player") {
+            coll.gameObject.GetComponent<Player>().ChangeGravity(new Vector3(x, y, z));
         }
     }
 }
