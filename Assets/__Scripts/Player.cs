@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
         onGround = false;
     }
 
-    void Update() {
+    void FixedUpdate() {
         float vertical = Input.GetAxis("Vertical") * movementSpeed;
         if (onGround) {
             Vector3 forceToAdd = transform.forward * vertical;
