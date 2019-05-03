@@ -64,10 +64,12 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public void ChangeGravity(Vector3 newGrav) {
+    public void ChangeGravity(Vector3 newGrav, Vector3 newDirection) {
         this.rb.useGravity = false;
         this.gravChanged = true;
         this.grav = newGrav;
         this.followCamera.GetComponent<FollowCamera>().changeUp(Vector3.Scale(new Vector3(-1, -1, -1), newGrav).normalized);
+        this.transform.rotation = Quaternion.Euler(newDirection);
+        this.rb.velocity = Vector3.zero;
     }
 }
