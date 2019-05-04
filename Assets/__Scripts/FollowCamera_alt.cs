@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FollowCamera1 : MonoBehaviour {
+public class FollowCamera_alt : MonoBehaviour {
     public GameObject toFollow;
     public Transform target;
     [Header("For adjusting angle offset")]

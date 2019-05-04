@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player1 : MonoBehaviour {
-
-    public float movementSpeed = 10;
-    public float turningSpeed = 60;
-    public int accelFactor = 1;
-    public GameObject com;
+public class Player_alt : MonoBehaviour {
+    public float movementSpeed = 30;
+    public float turningSpeed = 65;
+    public float accelFactor = 1;
+    public float friction = 0.75f;
+    public GameObject com; // center of mass
     Rigidbody rb;
     GameObject minimapMarker;
     bool onGround;
@@ -16,9 +16,11 @@ public class Player1 : MonoBehaviour {
         GetComponent<Rigidbody>().centerOfMass = com.transform.localPosition;
         rb = GetComponent<Rigidbody>();
         onGround = false;
+        rb.drag = friction;
     }
 
     void Update() {
+        
         float vertical = Input.GetAxis("Vertical") * movementSpeed;
         if (onGround) {
             Vector3 forceToAdd = transform.forward * vertical;
@@ -31,7 +33,6 @@ public class Player1 : MonoBehaviour {
         } else {
             transform.Rotate(0, -1 * horizontal, 0);
         }
-
     }
 
     void OnCollisionEnter(Collision coll) {
