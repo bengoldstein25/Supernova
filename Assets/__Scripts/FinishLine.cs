@@ -20,7 +20,7 @@ public class FinishLine : MonoBehaviour {
 	void Start () {
         startedRace = false;
         hasWon = false;
-        elapsedTime = Time.time;
+        elapsedTime = 0.0f;
 	}
 	
 	// Update is called once per frame
@@ -33,7 +33,7 @@ public class FinishLine : MonoBehaviour {
         if (!hasWon)
         {
             lapCounter.text = "Lap " + num_laps + " of " + total_laps;
-            elapsedTime = Time.time - elapsedTime;
+            elapsedTime += Time.deltaTime;
             string min = ((int) elapsedTime / 60).ToString();
             int sec_i = (int)elapsedTime % 60;
             string sec = sec_i.ToString();
