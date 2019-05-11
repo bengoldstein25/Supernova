@@ -4,6 +4,7 @@ using System.Collections;
 public class FollowCamera_alt : MonoBehaviour {
     public GameObject toFollow;
     public Transform target;
+    //Quaternion rot;
     [Header("For adjusting angle offset")]
     public float x_rot_angle = 0.0f;
     public float y_rot_angle = 0.0f;
@@ -29,17 +30,50 @@ public class FollowCamera_alt : MonoBehaviour {
             wantedPosition = target.TransformPoint(0, height, distance);
 
         transform.position = Vector3.Lerp(transform.position, wantedPosition, Time.deltaTime * damping);
-
+        /*
         Vector3 rot;
         rot.x = x_rot_angle;
         rot.y = y_rot_angle;
         rot.z = z_rot_angle;
-
+        */
         if (smoothRotation) {
-            Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
-            wantedRotation.x += x_rot_angle;
-            wantedRotation.y += y_rot_angle;
-            wantedRotation.z += z_rot_angle;
+            Vector3 newRot = target.position - transform.position;
+            newRot.z += z_rot_angle;
+            // Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
+            Quaternion wantedRotation = Quaternion.LookRotation(newRot, Vector3.up);
+            // ================== NEW CODE 
+            /*
+            if (wantedRotation.x - rot.x < 45 || (rot.x - wantedRotation.x) < 45)
+            {
+                wantedRotation.x = transform.rotation.x;
+            }
+
+            if (wantedRotation.y - rot.y < 45 || rot.y - wantedRotation.y < 45)
+            {
+                wantedRotation.y = transform.rotation.y;
+            }
+
+            if (wantedRotation.y - rot.y < 45 || rot.y - wantedRotation.y < 45)
+            {
+                wantedRotation.y = transform.rotation.y;
+            }
+            */
+            // ===========================
+
+            /*
+            if (wantedRotation.x != 0.0f)
+            {
+            wantedRotation.x -= x_rot_angle;
+            }
+            if (wantedRotation.y != 0.0f)
+            {
+                wantedRotation.y = y_rot_angle;
+            }
+            if (wantedRotation.z != 0.0f)
+            {*/
+            //wantedRotation.z = z_rot_angle;
+            //}
+
             transform.rotation = Quaternion.Slerp(transform.rotation, wantedRotation, Time.deltaTime * rotationDamping);
         } else transform.LookAt(target, target.up);
     }
