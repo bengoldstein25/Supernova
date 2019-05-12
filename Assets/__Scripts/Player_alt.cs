@@ -11,23 +11,35 @@ public class Player_alt : MonoBehaviour {
     Rigidbody rb;
     GameObject minimapMarker;
     bool onGround;
+    public int playerNumber = 0;
 
     void Start() {
         GetComponent<Rigidbody>().centerOfMass = com.transform.localPosition;
         rb = GetComponent<Rigidbody>();
         onGround = false;
         rb.drag = friction;
+        if(playerNumber == 0) {
+            playerNumber = 1;
+        }
     }
 
     void Update() {
-        
-        float vertical = Input.GetAxis("Vertical") * movementSpeed;
+        float vertical = movementSpeed;
+        if (playerNumber == 1) {
+            vertical = vertical * Input.GetAxis("Vertical-P1");
+        } else {
+            vertical = vertical * Input.GetAxis("Vertical-P2");
+        }
         if (onGround) {
             Vector3 forceToAdd = transform.forward * vertical;
             rb.AddForce(accelFactor * forceToAdd, ForceMode.Acceleration);
         }
-
-        float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
+        float horizontal = turningSpeed * Time.deltaTime;
+        if (playerNumber == 1) {
+            horizontal = horizontal * Input.GetAxis("Horizontal-P1");
+        } else {
+            horizontal = horizontal * Input.GetAxis("Horizontal-P2");
+        }
         if (vertical >= 0) {
             transform.Rotate(0, horizontal, 0);
         } else {
