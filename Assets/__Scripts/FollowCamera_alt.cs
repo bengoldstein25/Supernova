@@ -38,7 +38,7 @@ public class FollowCamera_alt : MonoBehaviour {
         */
         if (smoothRotation) {
             Vector3 newRot = target.position - transform.position;
-            newRot.z += z_rot_angle;
+            //newRot.z += z_rot_angle;
             // Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
             Quaternion wantedRotation = Quaternion.LookRotation(newRot, Vector3.up);
             // ================== NEW CODE 
@@ -71,7 +71,7 @@ public class FollowCamera_alt : MonoBehaviour {
             }
             if (wantedRotation.z != 0.0f)
             {*/
-            //wantedRotation.z = z_rot_angle;
+            wantedRotation.z += z_rot_angle;
             //}
 
             transform.rotation = Quaternion.Slerp(transform.rotation, wantedRotation, Time.deltaTime * rotationDamping);
