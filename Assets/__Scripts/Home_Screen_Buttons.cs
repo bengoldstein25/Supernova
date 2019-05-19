@@ -10,6 +10,7 @@ public class Home_Screen_Buttons : MonoBehaviour {
     public Image toFade;
     private bool switchingScreen;
     private string toLoad;
+    private bool isSinglePlayer;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +21,7 @@ public class Home_Screen_Buttons : MonoBehaviour {
     void PlayOnClick () {
         switchingScreen = true;
         toLoad = "LoadingScreen";
+        isSinglePlayer = true;
     }
 
     void Update () {
@@ -40,6 +42,7 @@ public class Home_Screen_Buttons : MonoBehaviour {
     void PlayDoneFading(string sceneToLoad) {
         LoadingScreen.To = sceneToLoad;
         LoadingScreen.From = "HomeScreen";
+        LoadingScreen.IsSinglePlayer = isSinglePlayer;
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 }

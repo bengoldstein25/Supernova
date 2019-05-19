@@ -14,36 +14,42 @@ public class Player : MonoBehaviour {
     bool onGround;
     private Vector3 grav;
     private bool gravChanged;
+    public int playerNumber = 0;
 
     void Start() {
         GetComponent<Rigidbody>().centerOfMass = com.transform.localPosition;
         rb = GetComponent<Rigidbody>();
-        onGround = false;
+        onGround = true;
+        if(playerNumber == 0) {
+            playerNumber = 1;
+        }
     }
 
-    void FixedUpdate() {
-        float vertical = Input.GetAxis("Vertical") * movementSpeed;
+    void Update() {
+        float vertical = movementSpeed;
+        if (playerNumber == 1) {
+            vertical = vertical * Input.GetAxis("Vertical-P1");
+        } else {
+            vertical = vertical * Input.GetAxis("Vertical-P2");
+        }
         if (onGround) {
             Vector3 forceToAdd = transform.forward * vertical;
-            var localVelocity = transform.InverseTransformDirection(rb.velocity);
-            var forwardSpeed = localVelocity.z;
-            if ((vertical < 0 && forwardSpeed > 0) || (vertical > 0 && forwardSpeed < 0)) {
-                forceToAdd = forceToAdd * 2;
-            }
             rb.AddForce(accelFactor * forceToAdd, ForceMode.Acceleration);
         }
-
-        float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
+        float horizontal = turningSpeed * Time.deltaTime;
+        if (playerNumber == 1) {
+            horizontal = horizontal * Input.GetAxis("Horizontal-P1");
+        } else {
+            horizontal = horizontal * Input.GetAxis("Horizontal-P2");
+        }
         if (vertical >= 0) {
             transform.Rotate(0, horizontal, 0);
         } else {
             transform.Rotate(0, -1 * horizontal, 0);
         }
-
         if (gravChanged) {
-            rb.AddForce(grav * rb.mass);
+            rb.AddForce(grav, ForceMode.Acceleration);
         }
-
     }
 
     void OnCollisionEnter(Collision coll) {
@@ -67,6 +73,7 @@ public class Player : MonoBehaviour {
     public void ChangeGravity(Vector3 newGrav, Vector3 newDirection) {
         this.rb.useGravity = false;
         this.gravChanged = true;
+        print(rb.useGravity);
         this.grav = newGrav;
         this.followCamera.GetComponent<FollowCamera>().changeUp(Vector3.Scale(new Vector3(-1, -1, -1), newGrav).normalized);
         this.transform.rotation = Quaternion.Euler(newDirection);

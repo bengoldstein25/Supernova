@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18827498, g: 0.1911405, b: 0.19109997, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -75231,9 +75231,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toFollow: {fileID: 20647484}
   target: {fileID: 0}
+  playerNumber: 0
   x_rot_angle: 0
   y_rot_angle: 0
-  z_rot_angle: 0.1
+  z_rot_angle: 0
   distance: 8
   height: 3
   damping: 5

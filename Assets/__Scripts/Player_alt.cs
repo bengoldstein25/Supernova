@@ -12,6 +12,9 @@ public class Player_alt : MonoBehaviour {
     GameObject minimapMarker;
     bool onGround;
     public int playerNumber = 0;
+    private Vector3 grav;
+    private bool gravChanged;
+    public GameObject followCamera;
 
     void Start() {
         GetComponent<Rigidbody>().centerOfMass = com.transform.localPosition;
@@ -21,6 +24,7 @@ public class Player_alt : MonoBehaviour {
         if(playerNumber == 0) {
             playerNumber = 1;
         }
+        gravChanged = false;
     }
 
     void Update() {
@@ -45,23 +49,38 @@ public class Player_alt : MonoBehaviour {
         } else {
             transform.Rotate(0, -1 * horizontal, 0);
         }
+        if (gravChanged) {
+            rb.AddForce(grav, ForceMode.Acceleration);
+        }
     }
 
     void OnCollisionEnter(Collision coll) {
         if (coll.collider.tag == "Ground") {
             onGround = true;
+            rb.drag = friction;
         }
     }
 
     void OnCollisionExit(Collision coll) {
         if (coll.collider.tag == "Ground") {
             onGround = false;
+            rb.drag = 0f;
         }
     }
 
     void OnCollisionStay(Collision coll) {
         if (coll.collider.tag == "Ground") {
             onGround = true;
+            rb.drag = friction;
         }
+    }
+
+    public void ChangeGravity(Vector3 newGrav, Vector3 newDirection) {
+        this.rb.useGravity = false;
+        this.gravChanged = true;
+        this.grav = newGrav;
+        this.followCamera.GetComponent<FollowCamera>().changeUp(Vector3.Scale(new Vector3(-1, -1, -1), newGrav).normalized);
+        this.transform.rotation = Quaternion.Euler(newDirection);
+        this.rb.velocity = Vector3.zero;
     }
 }

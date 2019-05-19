@@ -4,6 +4,8 @@ using System.Collections;
 public class FollowCamera_alt : MonoBehaviour {
     public GameObject toFollow;
     public Transform target;
+
+    public int playerNumber;
     //Quaternion rot;
     [Header("For adjusting angle offset")]
     public float x_rot_angle = 0.0f;
@@ -20,6 +22,8 @@ public class FollowCamera_alt : MonoBehaviour {
 
     void Start() {
         this.target = toFollow.transform;
+
+
     }
 
     void Update() {

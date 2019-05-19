@@ -9,7 +9,7 @@ public class GravitySwitch : MonoBehaviour {
 
 	void OnTriggerEnter(Collider coll) {
         if(coll.tag == "Player") {
-            coll.gameObject.GetComponent<Player>().ChangeGravity(grav, newDirection);
+            coll.gameObject.GetComponent<Player_alt>().ChangeGravity(grav, newDirection);
         }
     }
 }

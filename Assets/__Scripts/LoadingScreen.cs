@@ -5,6 +5,7 @@ using UnityEngine;
 public static class LoadingScreen {
 
     private static string from, to;
+    private static bool isSinglePlayer;
     
     public static string From {
         get {
@@ -19,6 +20,14 @@ public static class LoadingScreen {
             return to;
         } set {
             to = value;
+        }
+    }
+
+    public static bool IsSinglePlayer {
+        get {
+            return isSinglePlayer;
+        } set {
+            isSinglePlayer = value;
         }
     }
 
