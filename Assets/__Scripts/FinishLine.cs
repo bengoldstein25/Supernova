@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour {
 
@@ -18,6 +19,11 @@ public class FinishLine : MonoBehaviour {
     float elapsedTime;
     public List<GameObject> cp = new List<GameObject>();
     protected List<int> passed_checkpoints = new List<int>();
+    float timeToCount = -1f;
+    public Image toFade;
+    private bool switchingScreen;
+    private string toLoad;
+    private bool isSinglePlayer;
 
     void Start () {
         startedRace = false;
@@ -27,9 +33,38 @@ public class FinishLine : MonoBehaviour {
         {
             passed_checkpoints.Insert(i,0);
         }
-	}
-	
-	void Update () {
+    }
+
+    void Update () {
+        if (Input.GetKey("escape")) {
+            switchingScreen = true;
+            toLoad = "Track_Selection";
+            isSinglePlayer = true;
+        }
+        print(switchingScreen);
+        if(timeToCount > 0f) {
+            timeToCount -= Time.deltaTime;
+            print(timeToCount);
+        }
+
+        if(hasWon && timeToCount <= 0f) {
+            switchingScreen = true;
+            toLoad = "Track_Selection";
+            isSinglePlayer = true;
+        }
+
+        if (switchingScreen) {
+            Color oldColor = toFade.color;
+            float oldAlpha = oldColor.a;
+            float newAlpha = oldAlpha + 0.01f;
+            Color newColor = oldColor;
+            newColor.a = newAlpha;
+            toFade.color = newColor;
+            if (newAlpha >= 1f) {
+                switchingScreen = false;
+                PlayDoneFading(toLoad);
+            }
+        }
         if (num_laps > total_laps) hasWon = true;
 
         Completed_lap();
@@ -49,6 +84,9 @@ public class FinishLine : MonoBehaviour {
         {
             lapCounter.text = "You won!";
             timeCounter.color = Color.cyan;
+            if (timeToCount < 0f) {
+                timeToCount = 5;
+            }
         }
         
 
@@ -98,5 +136,12 @@ public class FinishLine : MonoBehaviour {
         {
             passed_checkpoints.Insert(i,0);
         }
+    }
+
+    void PlayDoneFading(string sceneToLoad) {
+        LoadingScreen.To = sceneToLoad;
+        LoadingScreen.From = "HomeScreen";
+        LoadingScreen.IsSinglePlayer = isSinglePlayer;
+        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 }
