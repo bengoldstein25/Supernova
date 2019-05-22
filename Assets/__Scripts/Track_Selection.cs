@@ -16,7 +16,6 @@ public class Track_Selection : MonoBehaviour {
     public Image toFade;
     private bool switchingScreen;
     private string toLoad;
-    private bool isSinglePlayer;
 
     // Use this for initialization
     void Start() {
@@ -33,43 +32,36 @@ public class Track_Selection : MonoBehaviour {
     void M1OnClick() {
         switchingScreen = true;
         toLoad = "Squiggly_Square";
-        isSinglePlayer = true;
     }
 
     void M2OnClick() {
         switchingScreen = true;
         toLoad = "Lonely_Lagoon";
-        isSinglePlayer = true;
     }
 
     void M3OnClick() {
         switchingScreen = true;
         toLoad = "Lunar_Landing";
-        isSinglePlayer = true;
     }
 
     void M4OnClick() {
         switchingScreen = true;
         toLoad = "Flaming_Flume";
-        isSinglePlayer = true;
     }
 
     void M5OnClick() {
         switchingScreen = true;
         toLoad = "Prehistoric_Parkway";
-        isSinglePlayer = true;
     }
 
     void M6OnClick() {
         switchingScreen = true;
         toLoad = "Volatile_Avenue";
-        isSinglePlayer = true;
     }
 
     void ExitOnClick() {
         switchingScreen = true;
         toLoad = "Num_Players_Select";
-        isSinglePlayer = true;
     }
 
     void Update() {
@@ -89,8 +81,7 @@ public class Track_Selection : MonoBehaviour {
 
     void PlayDoneFading(string sceneToLoad) {
         LoadingScreen.To = sceneToLoad;
-        LoadingScreen.From = "HomeScreen";
-        LoadingScreen.IsSinglePlayer = isSinglePlayer;
+        LoadingScreen.From = "Track Selection";
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 }

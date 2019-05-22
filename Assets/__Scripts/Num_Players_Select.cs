@@ -31,7 +31,7 @@ public class Num_Players_Select : MonoBehaviour {
     void P2OnClick() {
         switchingScreen = true;
         toLoad = "Track_Selection";
-        isSinglePlayer = true;
+        isSinglePlayer = false;
     }
 
     void ExitOnClick() {

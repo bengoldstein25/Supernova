@@ -23,7 +23,6 @@ public class FinishLine : MonoBehaviour {
     public Image toFade;
     private bool switchingScreen;
     private string toLoad;
-    private bool isSinglePlayer;
 
     void Start () {
         startedRace = false;
@@ -39,9 +38,7 @@ public class FinishLine : MonoBehaviour {
         if (Input.GetKey("escape")) {
             switchingScreen = true;
             toLoad = "Track_Selection";
-            isSinglePlayer = true;
         }
-        print(switchingScreen);
         if(timeToCount > 0f) {
             timeToCount -= Time.deltaTime;
             print(timeToCount);
@@ -50,7 +47,6 @@ public class FinishLine : MonoBehaviour {
         if(hasWon && timeToCount <= 0f) {
             switchingScreen = true;
             toLoad = "Track_Selection";
-            isSinglePlayer = true;
         }
 
         if (switchingScreen) {
@@ -140,8 +136,7 @@ public class FinishLine : MonoBehaviour {
 
     void PlayDoneFading(string sceneToLoad) {
         LoadingScreen.To = sceneToLoad;
-        LoadingScreen.From = "HomeScreen";
-        LoadingScreen.IsSinglePlayer = isSinglePlayer;
+        LoadingScreen.From = "FinishLine";
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 }

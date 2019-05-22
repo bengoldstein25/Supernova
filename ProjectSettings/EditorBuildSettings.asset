@@ -18,22 +18,22 @@ EditorBuildSettings:
     path: Assets/Scenes/Num_Players_Select.unity
     guid: 3153c25933ff4614181e39f38850a90f
   - enabled: 1
-    path: Assets/Scenes/Maps/Flaming_Flume.unity
+    path: Assets/Scenes/Flaming_Flume.unity
     guid: e6eab755efb69df4cbe0d6f62ad801e7
   - enabled: 1
-    path: Assets/Scenes/Maps/Lonely_Lagoon.unity
+    path: Assets/Scenes/Lonely_Lagoon.unity
     guid: f3cefa655e1e0b841abcb72cdb644406
   - enabled: 1
-    path: Assets/Scenes/Maps/Lunar_Landing.unity
+    path: Assets/Scenes/Lunar_Landing.unity
     guid: 3ceaf4be3a4747745a6cb2b8d936ac45
   - enabled: 1
-    path: Assets/Scenes/Maps/Prehistoric_Parkway.unity
+    path: Assets/Scenes/Prehistoric_Parkway.unity
     guid: 19fa073fd31cf3d4cb552ee130f63fdf
   - enabled: 1
-    path: Assets/Scenes/Maps/Squiggly_Square.unity
+    path: Assets/Scenes/Squiggly_Square.unity
     guid: 298a74b2a0ccb2241be9d808b8100f34
   - enabled: 1
-    path: Assets/Scenes/Maps/Volatile_Avenue.unity
+    path: Assets/Scenes/Volatile_Avenue.unity
     guid: 287636cd4714f3a4dbba58b7eaff9994
   - enabled: 1
     path: Assets/Scenes/Track_Selection.unity
