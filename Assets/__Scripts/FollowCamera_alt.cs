@@ -4,6 +4,7 @@ using System.Collections;
 public class FollowCamera_alt : MonoBehaviour {
     public GameObject toFollow;
     public Transform target;
+    private Camera cam;
 
     public int playerNumber;
     //Quaternion rot;
@@ -22,7 +23,22 @@ public class FollowCamera_alt : MonoBehaviour {
 
     void Start() {
         this.target = toFollow.transform;
-
+        this.cam = GetComponent<Camera>();
+        print(LoadingScreen.IsSinglePlayer);
+        if (LoadingScreen.IsSinglePlayer) {
+            if (playerNumber == 1) {
+                cam.rect = new Rect(0f, 0f, 1f, 1f);
+            } else {
+                Destroy(toFollow);
+                Destroy(gameObject);
+            }
+        } else {
+            if (playerNumber == 1) {
+                cam.rect = new Rect(0, 0, 0.5f, 1);
+            } else {
+                cam.rect = new Rect(0.5f, 0, 1f, 1);
+            }
+        }
 
     }
 
