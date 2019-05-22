@@ -6171,6 +6171,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1306745811008692, guid: 85e4a2a5fbe78c84ea6a497da62c7898, type: 2}
+      propertyPath: m_Name
+      value: LapCountPlayer1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85e4a2a5fbe78c84ea6a497da62c7898, type: 2}
   m_IsPrefabParent: 0
@@ -8513,7 +8517,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4026438846842338, guid: 8ab2daa7daf222246a051778742ace9f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 350.8
+      value: 347
       objectReference: {fileID: 0}
     - target: {fileID: 4026438846842338, guid: 8ab2daa7daf222246a051778742ace9f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -8521,7 +8525,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4026438846842338, guid: 8ab2daa7daf222246a051778742ace9f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 67.2
+      value: 69
       objectReference: {fileID: 0}
     - target: {fileID: 4026438846842338, guid: 8ab2daa7daf222246a051778742ace9f, type: 2}
       propertyPath: m_LocalRotation.x
@@ -9108,7 +9112,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 989392134}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &989392137
 Behaviour:
   m_ObjectHideFlags: 0
@@ -12423,6 +12427,10 @@ Prefab:
       propertyPath: playerNumber
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: 0e7ee4df08df88c4880f43398f9ad2c2, type: 2}
+      propertyPath: m_TagString
+      value: Player1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e7ee4df08df88c4880f43398f9ad2c2, type: 2}
   m_IsPrefabParent: 0
@@ -12755,6 +12763,10 @@ Prefab:
         type: 2}
       propertyPath: playerNumber
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: 0e7ee4df08df88c4880f43398f9ad2c2, type: 2}
+      propertyPath: m_TagString
+      value: Player2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e7ee4df08df88c4880f43398f9ad2c2, type: 2}

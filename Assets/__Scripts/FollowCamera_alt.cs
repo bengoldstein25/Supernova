@@ -20,11 +20,12 @@ public class FollowCamera_alt : MonoBehaviour {
     public bool smoothRotation = true;
     public float rotationDamping = 10.0f;
     public bool followBehind = true;
+    Vector3 up;
 
     void Start() {
         this.target = toFollow.transform;
         this.cam = GetComponent<Camera>();
-        print(LoadingScreen.IsSinglePlayer);
+        this.up = Vector3.up;
         if (LoadingScreen.IsSinglePlayer) {
             if (playerNumber == 1) {
                 cam.rect = new Rect(0f, 0f, 1f, 1f);
@@ -60,7 +61,7 @@ public class FollowCamera_alt : MonoBehaviour {
             Vector3 newRot = target.position - transform.position;
             //newRot.z += z_rot_angle;
             // Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
-            Quaternion wantedRotation = Quaternion.LookRotation(newRot, Vector3.up);
+            Quaternion wantedRotation = Quaternion.LookRotation(newRot, up);
             // ================== NEW CODE 
             /*
             if (wantedRotation.x - rot.x < 45 || (rot.x - wantedRotation.x) < 45)
@@ -96,5 +97,9 @@ public class FollowCamera_alt : MonoBehaviour {
 
             transform.rotation = Quaternion.Slerp(transform.rotation, wantedRotation, Time.deltaTime * rotationDamping);
         } else transform.LookAt(target, target.up);
+    }
+
+    public void changeUp(Vector3 newUp) {
+        this.up = newUp;
     }
 }

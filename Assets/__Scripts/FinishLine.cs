@@ -7,18 +7,23 @@ using UnityEngine.SceneManagement;
 public class FinishLine : MonoBehaviour {
 
     [Header("Changes as player does laps")]
-    public int num_laps = 1;
+    public int num_laps_p1 = 1;
+    public int num_laps_p2 = 1;
+
 
     [Header("Depends on the race")]
     public int total_laps = 3;
     public int num_checkpoints = 3;
-    public Text lapCounter;
+    public Text lapCounterP1;
+    public Text lapCounterP2;
     public Text timeCounter;
     bool startedRace; //refers to state of the game
     bool hasWon; // refers to state of the game
+    int winner;
     float elapsedTime;
     public List<GameObject> cp = new List<GameObject>();
-    protected List<int> passed_checkpoints = new List<int>();
+    protected List<int> passed_checkpoints_1 = new List<int>();
+    protected List<int> passed_checkpoints_2 = new List<int>();
     float timeToCount = -1f;
     public Image toFade;
     private bool switchingScreen;
@@ -30,8 +35,10 @@ public class FinishLine : MonoBehaviour {
         elapsedTime = 0.0f;
         for (int i = 0; i < num_checkpoints; i++)
         {
-            passed_checkpoints.Insert(i,0);
+            passed_checkpoints_1.Insert(i, 0);
+            passed_checkpoints_2.Insert(i, 0);
         }
+        winner = 0;
     }
 
     void Update () {
@@ -41,7 +48,6 @@ public class FinishLine : MonoBehaviour {
         }
         if(timeToCount > 0f) {
             timeToCount -= Time.deltaTime;
-            print(timeToCount);
         }
 
         if(hasWon && timeToCount <= 0f) {
@@ -61,13 +67,22 @@ public class FinishLine : MonoBehaviour {
                 PlayDoneFading(toLoad);
             }
         }
-        if (num_laps > total_laps) hasWon = true;
+        if (num_laps_p1 > total_laps && !hasWon) {
+            hasWon = true;
+            winner = 1;
+        }
+        if (num_laps_p2 > total_laps && !hasWon) {
+            hasWon = true;
+            winner = 2;
+        }
 
-        Completed_lap();
+        Completed_lap(1);
+        Completed_lap(2);
 
         if (!hasWon)
         {
-            lapCounter.text = "Lap " + num_laps + " of " + total_laps;
+            lapCounterP1.text = "Lap " + num_laps_p1 + " of " + total_laps;
+            lapCounterP2.text = "Lap " + num_laps_p2 + " of " + total_laps;
             elapsedTime += Time.deltaTime;
             string min = ((int) elapsedTime / 60).ToString();
             int sec_i = (int)elapsedTime % 60;
@@ -78,7 +93,11 @@ public class FinishLine : MonoBehaviour {
         }
         else
         {
-            lapCounter.text = "You won!";
+            if (winner == 1) {
+                lapCounterP1.text = "You won!";
+            } else if (winner == 2) {
+                lapCounterP2.text = "You won!";
+            }
             timeCounter.color = Color.cyan;
             if (timeToCount < 0f) {
                 timeToCount = 5;
@@ -90,47 +109,70 @@ public class FinishLine : MonoBehaviour {
     
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.tag == "Player")
+        if (coll.tag == "Player1")
         {
             if (!startedRace) startedRace = true;
             else
             {
-                if (Completed_lap())
+                if (Completed_lap(1))
                 {
-                    num_laps++;
-                    Reset_lap();
+                    num_laps_p1++;
+                    Reset_lap(1);
+                } 
+            }
+        }
+        if (coll.tag == "Player2") {
+            if (!startedRace) startedRace = true;
+            else {
+                if (Completed_lap(2)) {
+                    num_laps_p2++;
+                    Reset_lap(2);
                 }
             }
         }
     }
     
 
-    public void Checkpoint_triggered(GameObject go)
+    public void Checkpoint_triggered(GameObject go, int carNum)
     {
         int i = cp.IndexOf(go);
         if (i > -1)
         {
             //print(go.name);
             //print(i);
-            passed_checkpoints.Insert(i, 1);
+            if (carNum == 1) {
+                passed_checkpoints_1.Insert(i, 1);
+            } else if (carNum == 2) {
+                passed_checkpoints_2.Insert(i, 1);
+            }
         }
     }
 
-    private bool Completed_lap()
+    private bool Completed_lap(int toCheck)
     {
         bool completed = true;
-        for (int c  = 0; c < num_checkpoints; c++)
-        {
-            if (passed_checkpoints[c] == 0) completed = false;
+        if (toCheck == 1) {
+            for (int c = 0; c < num_checkpoints; c++) {
+                if (passed_checkpoints_1[c] == 0) completed = false;
+            }
+        } else if (toCheck == 2) {
+            for (int c = 0; c < num_checkpoints; c++) {
+                if (passed_checkpoints_2[c] == 0) completed = false;
+            }
         }
         return completed;
     }
 
-    private void Reset_lap()
+    private void Reset_lap(int toReset)
     {
-        for (int i = 0; i < num_checkpoints; i++)
-        {
-            passed_checkpoints.Insert(i,0);
+        if (toReset == 1) {
+            for (int i = 0; i < num_checkpoints; i++) {
+                passed_checkpoints_1.Insert(i, 0);
+            }
+        } else if (toReset == 2) {
+            for (int i = 0; i < num_checkpoints; i++) {
+                passed_checkpoints_2.Insert(i, 0);
+            }
         }
     }
 
