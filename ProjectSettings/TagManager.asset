@@ -8,6 +8,9 @@ TagManager:
   - RampUp
   - GravChange-X
   - checkpoint
+  - Powerup
+  - Player2
+  - Asteroid
   - Player1
   - Player2
   layers:
